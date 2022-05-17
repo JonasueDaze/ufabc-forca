@@ -15,10 +15,20 @@ public class ButtonManager : MonoBehaviour
     }
 
     /**
-     * Carrega a cena do jogo.
+     * Carrega a cena passada como parâmetro.
      */
-    public void StartGame()
+    public void StartScene(string scene)
     {
-        SceneManager.LoadScene("Lab1");
+        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(scene);
+    }
+
+    /**
+     * Volta para a cena anterior.
+     */
+    public void BackScene()
+    {
+        var previousScene = PlayerPrefs.GetString("previousScene");
+        SceneManager.LoadScene(previousScene);
     }
 }

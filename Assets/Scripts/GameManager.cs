@@ -62,7 +62,10 @@ public class GameManager : MonoBehaviour
         var numLetters = word.Length;
         for (var i = 0; i < numLetters; i++)
         {
-            var newPosition = new Vector3(center.transform.position.x + ((i - numLetters / 2f) * 80), center.transform.position.y, center.transform.position.z);
+            var newPosition = new Vector3(
+                center.transform.position.x + ((i - numLetters / 2f) * 80),
+                center.transform.position.y,
+                center.transform.position.z);
             var l = (GameObject)Instantiate(letter, newPosition, Quaternion.identity);
 
             // Nomeia na hierarquia a GameObject com letra-(iésima+1), i = 1..numLetters
@@ -70,6 +73,9 @@ public class GameManager : MonoBehaviour
 
             // Posiciona-se como filho do GameObject Canvas.
             l.transform.SetParent(GameObject.Find("Canvas").transform);
+
+            // Corrige blur do texto na cena.
+            l.transform.localScale = Vector3.one;
         }
     }
 
@@ -103,7 +109,7 @@ public class GameManager : MonoBehaviour
             UpdateNumTries();
             if (numTries > maxNumTries)
             {
-                SceneManager.LoadScene("Lab1_forca");
+                SceneManager.LoadScene("Lab1_gameover");
             }
 
             for (var i = 0; i < word.Length; i++)
@@ -156,7 +162,7 @@ public class GameManager : MonoBehaviour
         if (win)
         {
             PlayerPrefs.SetString("word", word);
-            SceneManager.LoadScene("Lab1_salvo");
+            SceneManager.LoadScene("Lab1_success");
         }
     }
 
